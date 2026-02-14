@@ -10,6 +10,17 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import sys,json; d=json.load(sys.stdin); p=d.get('file_path',''); exec('import subprocess; r=subprocess.run([sys.executable,\\\"-m\\\",\\\"py_compile\\\",p],capture_output=True,text=True); print(r.stderr) if r.returncode else print(\\\"Syntax OK: \\\"+p)') if p.endswith('.py') else print('Skipped (not Python)')\""
+          }
+        ]
+      }
     ]
   }
 }
